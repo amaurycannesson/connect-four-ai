@@ -21,7 +21,7 @@
         <div class="grid">
             {% for col in grid %}
             <div class="col">
-                {% for disc in col %}
+                {% for disc in col['cells'] %}
                 <div class="disc {{ disc }}">
                 </div>
                 {% endfor %}

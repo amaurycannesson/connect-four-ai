@@ -4,7 +4,3 @@ class InvalidColumnException(Exception):
 
 class AlreadyFilledColumnException(Exception):
     pass
-
-
-class DoublePlayException(Exception):
-    pass

@@ -3,7 +3,6 @@ from typing import List, Literal, Optional, TypeGuard, Union
 
 from .exceptions import (
     AlreadyFilledColumnException,
-    DoublePlayException,
     InvalidColumnException,
 )
 
@@ -32,7 +31,7 @@ class ConnectFour:
     def get_grid(self) -> Grid:
         return self._grid
 
-    def place(self, col_index: int, disc: Disc):
+    def play(self, col_index: int):
         if col_index < 0 or col_index >= WIDTH:
             raise InvalidColumnException()
 
@@ -43,11 +42,9 @@ class ConnectFour:
         except ValueError as value_err:
             raise AlreadyFilledColumnException() from value_err
 
-        if self._last_play == disc:
-            raise DoublePlayException()
-
-        self._last_play = disc
-        self._grid[HEIGHT - 1 - available_row_index][col_index] = disc
+        played_disc = Disc.RED if self._last_play == Disc.YELLOW else Disc.YELLOW
+        self._grid[HEIGHT - 1 - available_row_index][col_index] = played_disc
+        self._last_play = played_disc
 
     def get_winner(self) -> Optional[Disc]:
         def has_four_discs_in_a_row(cell: Cell, row: List[Cell]) -> TypeGuard[Disc]:
