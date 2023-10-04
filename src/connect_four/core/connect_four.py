@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import StrEnum
 from typing import List, Literal, Optional, TypeGuard, Union
 
 from .exceptions import (
@@ -8,7 +8,7 @@ from .exceptions import (
 )
 
 
-class Disc(Enum):
+class Disc(StrEnum):
     RED = "R"
     YELLOW = "Y"
 
@@ -24,7 +24,7 @@ HEIGHT = 6
 
 class ConnectFour:
     _grid: Grid
-    _last_play: Optional[Disc] = None
+    _last_play: Disc = Disc.YELLOW
 
     def __init__(self):
         self._grid = [[EMPTY_CELL] * WIDTH for _ in range(HEIGHT)]

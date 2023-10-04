@@ -6,6 +6,16 @@ from connect_four.core import EMPTY_CELL, Disc
 
 client = TestClient(app)
 
+import re
+from playwright.sync_api import Page, expect
+
+
+def test_has_title(page: Page):
+    page.goto("http://localhost:8000/")
+
+    # Expect a title "to contain" a substring.
+    expect(page.locator("css=.disc")).to_have_count(42)
+
 
 def test_should_return_an_empty_grid():
     response = client.get("/game/grid")

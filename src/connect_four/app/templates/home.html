@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .disc {
+                width: 100px;
+                height: 100px;
+                background: black;
+                margin: 4px
+            }
+            .disc.R {
+                background: red;
+            }
+            .grid {
+                display: flex;
+                justify-content: space-between;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="grid">
+            {% for col in grid %}
+            <div class="col">
+                {% for disc in col %}
+                <div class="disc {{ disc }}">
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>

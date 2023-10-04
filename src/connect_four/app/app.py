@@ -1,4 +1,7 @@
-from fastapi import APIRouter, FastAPI, status, Depends
+import os
+from fastapi import APIRouter, FastAPI, Request, status, Depends
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 
 from connect_four.core import ConnectFour
@@ -36,3 +39,17 @@ async def place_disc(
 
 app = FastAPI(title="Connect Four App")
 app.include_router(game_router)
+
+templates = Jinja2Templates(
+    directory=os.path.join(os.path.dirname(__file__), "templates")
+)
+
+
+@app.get("/", response_class=HTMLResponse)
+async def get_home(
+    request: Request, connect_four: ConnectFour = Depends(get_connect_four)
+):
+    grid_cols = list(zip(*connect_four.get_grid()))
+    return templates.TemplateResponse(
+        "home.html", {"request": request, "grid": grid_cols}
+    )
