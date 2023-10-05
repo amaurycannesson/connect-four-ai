@@ -1,32 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-            .disc {
-                width: 100px;
-                height: 100px;
-                background: black;
-                margin: 4px
-            }
-            .disc.R {
-                background: red;
-            }
-            .grid {
-                display: flex;
-                justify-content: space-between;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="/static/index.css">
+        <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
     </head>
     <body>
-        <div class="grid">
-            {% for col in grid %}
-            <div class="col">
-                {% for disc in col['cells'] %}
-                <div class="disc {{ disc }}">
-                </div>
-                {% endfor %}
-            </div>
-            {% endfor %}
-        </div>
+       {% include "partials/game.html" %} 
     </body>
 </html>

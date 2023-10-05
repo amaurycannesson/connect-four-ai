@@ -31,6 +31,9 @@ class ConnectFour:
     def get_grid(self) -> Grid:
         return self._grid
 
+    def get_next_disc(self) -> Disc:
+        return Disc.RED if self._last_play == Disc.YELLOW else Disc.YELLOW
+
     def play(self, col_index: int):
         if col_index < 0 or col_index >= WIDTH:
             raise InvalidColumnException()
@@ -42,7 +45,7 @@ class ConnectFour:
         except ValueError as value_err:
             raise AlreadyFilledColumnException() from value_err
 
-        played_disc = Disc.RED if self._last_play == Disc.YELLOW else Disc.YELLOW
+        played_disc = self.get_next_disc()
         self._grid[HEIGHT - 1 - available_row_index][col_index] = played_disc
         self._last_play = played_disc
 

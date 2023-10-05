@@ -1,0 +1,38 @@
+.disc {
+    width: 100px;
+    height: 100px;
+    background: white;
+    border-radius:200px;
+    margin: 8px
+}
+.R {
+    background: red;
+}
+.Y {
+    background: orange;
+}
+.grid {
+    display: flex;
+}
+.col {
+    background: blue;
+}
+.col-with-preview:hover:not(.preview-disabled) > .col {
+    background: lightskyblue;
+}
+.col-with-preview:hover  > .preview:not(.preview-disabled) {
+    visibility: visible;
+}
+.preview {
+    visibility: hidden;
+}
+.col-with-preview {
+    display: flex; 
+    flex-direction: column;
+}
+.winner-message {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    font-size: xxx-large;
+}

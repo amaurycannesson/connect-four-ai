@@ -1,0 +1,9 @@
+<div class="game-container">
+    {% if winner %}
+    <div class="winner-message">
+        <div class="disc {{ winner }}"></div> wins!
+        <button hx-post="/reset" hx-target=".game-container">Replay</button>
+    </div>
+    {% endif %}
+    {% include "partials/grid.html" %} 
+</div>

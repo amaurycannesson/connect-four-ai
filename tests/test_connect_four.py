@@ -113,3 +113,15 @@ def test_yellow_should_win_when_4_red_discs_in_bottom_right_dir(
     connect_four.play(col_index=0)
 
     assert connect_four.get_winner() == Disc.YELLOW
+
+
+def test_should_return_red_disc_when_asking_first_player_disc(
+    connect_four: ConnectFour,
+):
+    assert connect_four.get_next_disc() == Disc.RED
+
+
+def test_should_return_yellow_disc_when_playing_first_turn(connect_four: ConnectFour):
+    connect_four.play(col_index=0)
+
+    assert connect_four.get_next_disc() == Disc.YELLOW
