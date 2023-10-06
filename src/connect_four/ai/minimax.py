@@ -105,7 +105,7 @@ class MinimaxAI:
                     if has_three_discs_in_a_row(cur_cell, list(col)):
                         count += 1
 
-            for y in range(HEIGHT - 1, HEIGHT - 2, -1):
+            for y in range(HEIGHT - 1, HEIGHT - 3, -1):
                 for x in range(WIDTH - 2):
                     cur_cell = connect_four.get_grid()[y][x]
                     if has_three_discs_in_a_diag(

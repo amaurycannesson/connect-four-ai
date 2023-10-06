@@ -109,7 +109,7 @@ class ConnectFour:
                 if has_four_discs_in_a_row(cur_cell, list(col)):
                     return cur_cell
 
-        for y in range(HEIGHT - 1, HEIGHT - 3, -1):
+        for y in range(HEIGHT - 1, HEIGHT - 2, -1):
             for x in range(WIDTH - 3):
                 cur_cell = self._grid[y][x]
                 if has_four_discs_in_a_diag(cur_cell, self._grid, is_going_up=True):
