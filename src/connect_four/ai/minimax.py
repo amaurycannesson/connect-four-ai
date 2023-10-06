@@ -5,13 +5,18 @@ from connect_four.core.connect_four import HEIGHT, WIDTH, Cell
 
 
 class MinimaxAI:
+    def __init__(self, max_depth: int = 3):
+        self.max_depth = max_depth
+
     def next_move(self, connect_four: ConnectFour) -> int:
         best_move = 1
         best_score = -math.inf
         for move in connect_four.get_free_column_indexes():
             ai_disc = connect_four.get_next_disc()
             connect_four.play(move)
-            score = self._minimax(connect_four, ai_disc, is_max=False)
+            score = self._minimax(
+                connect_four, ai_disc, is_max=False, depth=self.max_depth
+            )
             connect_four.undo()
             if score > best_score:
                 best_move = move
@@ -19,7 +24,13 @@ class MinimaxAI:
         return best_move
 
     def _minimax(
-        self, connect_four: ConnectFour, max_disc: Disc, is_max: bool, depth: int = 3
+        self,
+        connect_four: ConnectFour,
+        max_disc: Disc,
+        is_max: bool,
+        depth: int,
+        alpha: float = -math.inf,
+        beta: float = math.inf,
     ) -> float:
         if connect_four.is_game_over() or depth == 0:
             return self._evaluate(connect_four, max_disc)
@@ -29,18 +40,36 @@ class MinimaxAI:
             for move in connect_four.get_free_column_indexes():
                 connect_four.play(move)
                 score = self._minimax(
-                    connect_four, max_disc, is_max=False, depth=depth - 1
+                    connect_four,
+                    max_disc,
+                    is_max=False,
+                    depth=depth - 1,
+                    alpha=alpha,
+                    beta=beta,
                 )
                 connect_four.undo()
                 best_score = max(best_score, score)
+                alpha = max(alpha, score)
+                if beta <= alpha:
+                    break
             return best_score
 
         best_score = math.inf
         for move in connect_four.get_free_column_indexes():
             connect_four.play(move)
-            score = self._minimax(connect_four, max_disc, is_max=True, depth=depth - 1)
+            score = self._minimax(
+                connect_four,
+                max_disc,
+                is_max=True,
+                depth=depth - 1,
+                alpha=alpha,
+                beta=beta,
+            )
             connect_four.undo()
             best_score = min(best_score, score)
+            beta = min(beta, score)
+            if beta <= alpha:
+                break
         return best_score
 
     def _evaluate(self, connect_four: ConnectFour, max_disc: Disc) -> float:
