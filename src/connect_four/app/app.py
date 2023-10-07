@@ -6,6 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from connect_four.ai import MinimaxAI
+from connect_four.ai.mcts import MonteCarloTreeSearch
 
 from .connect_four_service import ConnectFourService
 from .dependencies import get_connect_four_service
@@ -40,7 +41,9 @@ async def play(
     connect_four_service: ConnectFourService = Depends(get_connect_four_service),
 ):
     connect_four_service.play(col_index)
-    connect_four_service.play(MinimaxAI().next_move(connect_four_service.connect_four))
+    connect_four_service.play(
+        MonteCarloTreeSearch().next_move(connect_four_service.connect_four)
+    )
     return templates.TemplateResponse(
         "partials/game.html",
         _build_page_context(request, connect_four_service),
